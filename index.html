@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vedas InfoSec | Cybersecurity Training & Penetration Testing Services</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter and Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            dark: {
+              900: '#070b12',
+              850: '#0b0f19',
+              800: '#111827',
+              700: '#1f293d',
+              600: '#374151'
+            },
+            cyan: {
+              400: '#22d3ee',
+              500: '#06b6d4',
+              accent: '#00f2fe'
+            },
+            emerald: {
+              400: '#34d399',
+              500: '#10b981'
+            }
+          },
+          backgroundImage: {
+            'grid-pattern': "radial-gradient(circle, rgba(6, 182, 212, 0.08) 1px, transparent 1px)",
+            'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom cyber glow and grid styles */
+    .cyber-grid {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+    .neon-glow-cyan {
+      box-shadow: 0 0 35px -5px rgba(6, 182, 212, 0.35);
+    }
+    .neon-border-cyan {
+      border: 1px solid rgba(6, 182, 212, 0.3);
+    }
+    .neon-border-cyan:hover {
+      border-color: rgba(6, 182, 212, 0.8);
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+    }
+    .glass-card {
+      background: rgba(17, 24, 39, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    /* Terminal cursor blink */
+    .blinking-cursor {
+      animation: blink 1s step-start infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+  </style>
+</head>
+<body class="bg-dark-900 text-gray-200 font-sans antialiased selection:bg-cyan-500 selection:text-black min-h-screen relative overflow-x-hidden">
+
+  <!-- Ambient background cyber glows -->
+  <div class="fixed top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+  <div class="fixed bottom-1/4 right-10 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+
+  <!-- Navigation Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-md bg-dark-900/80 border-b border-gray-800/80" id="mainHeader">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 via-indigo-600 to-emerald-400 p-[1px] shadow-lg shadow-cyan-500/20">
+          <div class="w-full h-full bg-dark-900 rounded-[11px] flex items-center justify-center group-hover:bg-dark-850 transition-colors">
+            <svg class="w-5 h-5 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-heading font-bold text-xl tracking-tight text-white flex items-center gap-1.5">
+            Vedas <span class="text-cyan-400">InfoSec</span>
+          </span>
+          <span class="text-[10px] uppercase font-mono tracking-widest text-emerald-400 font-semibold">Cyber Defense & Labs</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
+        <a href="#about" class="hover:text-cyan-400 transition-colors">About</a>
+        <a href="#training" class="hover:text-cyan-400 transition-colors">Training Programs</a>
+        <a href="#pentesting" class="hover:text-cyan-400 transition-colors">Pentesting Services</a>
+        <a href="#why-us" class="hover:text-cyan-400 transition-colors">Why Us</a>
+        <a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
+      </nav>
+
+      <!-- Action Button -->
+      <div class="hidden sm:flex items-center gap-4">
+        <a href="#contact" class="relative group px-5 py-2.5 rounded-lg font-heading text-sm font-semibold tracking-wide text-dark-900 bg-gradient-to-r from-cyan-400 to-emerald-400 hover:from-cyan-300 hover:to-emerald-300 transition-all duration-300 shadow-md shadow-cyan-500/20 hover:shadow-cyan-500/40">
+          Enroll / Inquire
+        </a>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button id="mobileMenuBtn" aria-label="Toggle Navigation Menu" class="md:hidden p-2 rounded-lg text-gray-400 hover:text-white hover:bg-dark-800 focus:outline-none">
+        <svg id="menuIcon" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+        <svg id="closeIcon" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenu" class="hidden md:hidden border-b border-gray-800 bg-dark-900/95 backdrop-blur-xl px-4 pt-2 pb-6 space-y-3">
+      <a href="#about" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-dark-800">About Vedas</a>
+      <a href="#training" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-dark-800">Training Programs</a>
+      <a href="#pentesting" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-dark-800">Pentesting Services</a>
+      <a href="#why-us" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-dark-800">Why Choose Us</a>
+      <a href="#contact" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-cyan-400 hover:bg-dark-800">Contact & Enroll</a>
+      <div class="pt-2">
+        <a href="https://wa.me/917089357063" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg bg-emerald-500/20 text-emerald-400 font-semibold border border-emerald-500/40 text-sm">
+          Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="hero" class="relative pt-32 pb-20 md:pt-40 md:pb-32 cyber-grid overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        <div class="max-w-3xl mx-auto text-center space-y-6">
+          
+          <!-- Badge -->
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-dark-800/90 border border-cyan-500/30 text-xs sm:text-sm text-cyan-300 font-mono shadow-sm">
+            <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            <span>🛡️ Empowering Careers • Securing Businesses</span>
+          </div>
+
+          <!-- Main Title -->
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-heading text-white tracking-tight leading-tight">
+            Launch Your Cyber Career & <br class="hidden sm:inline" />
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-emerald-300 to-teal-200">
+              Fortify Your Digital Assets
+            </span>
+          </h1>
+
+          <!-- Subheading -->
+          <p class="text-base sm:text-lg text-gray-300 leading-relaxed font-normal">
+            Bridging the global cyber skills gap with hands-on training—<span class="text-emerald-400 font-semibold">zero prior coding experience required</span>. Plus, battle-tested penetration testing services across web, cloud, APIs, and networks to neutralize threats before attackers strike.
+          </p>
+
+          <!-- Dual CTAs -->
+          <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="#training" class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-heading font-semibold text-dark-900 bg-gradient-to-r from-cyan-400 to-emerald-400 hover:from-cyan-300 hover:to-emerald-300 transition-all duration-300 shadow-lg shadow-cyan-500/25 flex items-center justify-center gap-2">
+              <svg class="w-5 h-5 text-dark-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+              </svg>
+              Explore Training Programs
+            </a>
+            <a href="#pentesting" class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-heading font-semibold text-gray-200 bg-dark-800/90 hover:bg-dark-700 border border-gray-700 hover:border-cyan-500/60 transition-all duration-300 flex items-center justify-center gap-2">
+              <svg class="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+              </svg>
+              Request Pentest Services
+            </a>
+          </div>
+
+          <!-- Interactive Terminal Teaser -->
+          <div class="pt-8 max-w-xl mx-auto text-left">
+            <div class="rounded-xl border border-gray-800 bg-dark-850/90 p-4 shadow-2xl font-mono text-xs text-gray-300">
+              <div class="flex items-center gap-2 pb-3 mb-3 border-b border-gray-800/80">
+                <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+                <span class="ml-2 text-gray-500 text-[11px]">kali@vedas-infosec:~</span>
+              </div>
+              <p class="text-emerald-400">$ ./vedas_sec --init-audit --target-mode=proactive</p>
+              <p class="text-gray-400 mt-1">[+] Initializing offensive security suite & practical labs...</p>
+              <p class="text-cyan-400 mt-1">[✓] Ready: Web, API, Mobile, Cloud, Network, & Career Tracks Loaded.<span class="blinking-cursor">_</span></p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Key Stats Bar -->
+        <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+          <div class="glass-card p-5 rounded-2xl border border-gray-800 text-center hover:border-cyan-500/40 transition">
+            <div class="text-2xl sm:text-3xl font-bold font-heading text-cyan-400">Zero Coding</div>
+            <div class="text-xs sm:text-sm text-gray-400 mt-1">Prerequisites to start</div>
+          </div>
+          <div class="glass-card p-5 rounded-2xl border border-gray-800 text-center hover:border-emerald-500/40 transition">
+            <div class="text-2xl sm:text-3xl font-bold font-heading text-emerald-400">100% Practical</div>
+            <div class="text-xs sm:text-sm text-gray-400 mt-1">Live Lab-Oriented Sessions</div>
+          </div>
+          <div class="glass-card p-5 rounded-2xl border border-gray-800 text-center hover:border-cyan-400 transition">
+            <div class="text-2xl sm:text-3xl font-bold font-heading text-cyan-400">35+ Lakh</div>
+            <div class="text-xs sm:text-sm text-gray-400 mt-1">Global Unfilled Jobs</div>
+          </div>
+          <div class="glass-card p-5 rounded-2xl border border-gray-800 text-center hover:border-emerald-500/40 transition">
+            <div class="text-2xl sm:text-3xl font-bold font-heading text-emerald-400">Full-Stack</div>
+            <div class="text-xs sm:text-sm text-gray-400 mt-1">Vulnerability Auditing</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- About Us & Mission -->
+    <section id="about" class="py-20 bg-dark-850 relative border-t border-b border-gray-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <h2 class="text-xs uppercase font-mono tracking-widest text-cyan-400 font-semibold">About Vedas InfoSec</h2>
+          <p class="text-3xl sm:text-4xl font-extrabold font-heading text-white mt-2">
+            Bridging the Cyber Gap, Securing the Modern Web
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- Detailed About description -->
+          <div class="lg:col-span-7 space-y-5 text-gray-300 leading-relaxed text-base">
+            <p>
+              <strong class="text-white font-semibold">Vedas InfoSec</strong> is a cybersecurity training and services startup committed to solving one of technology’s most urgent crises: the global talent shortage in cyber defense and digital asset protection.
+            </p>
+            <p>
+              We empower college graduates, ambitious beginners, and working IT professionals to launch rewarding, high-paying tech careers in <span class="text-cyan-300 font-medium">ethical hacking and information security</span>—starting completely from scratch, with zero prior engineering or coding experience required.
+            </p>
+            <p>
+              Simultaneously, our seasoned security professionals conduct intensive penetration testing across web applications, APIs, mobile endpoints, physical & virtual networks, cloud architecture, and enterprise Office 365 setups—pinpointing flaws and helping business leaders plug security holes long before attackers exploit them.
+            </p>
+
+            <div class="pt-2 flex flex-wrap gap-3">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-dark-800 border border-gray-700 text-xs font-mono text-cyan-300">
+                <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                Beginner Friendly
+              </span>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-dark-800 border border-gray-700 text-xs font-mono text-emerald-300">
+                <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                Job Oriented Skills
+              </span>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-dark-800 border border-gray-700 text-xs font-mono text-cyan-300">
+                <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                Remediation-First Audits
+              </span>
+            </div>
+          </div>
+
+          <!-- Mission Card -->
+          <div class="lg:col-span-5">
+            <div class="relative p-8 rounded-2xl bg-gradient-to-b from-dark-800 to-dark-900 border border-cyan-500/30 neon-glow-cyan shadow-xl">
+              <div class="absolute -top-3.5 left-6 px-3 py-0.5 rounded-full bg-cyan-500 text-[11px] font-bold uppercase tracking-wider text-dark-900">
+                Our Mission
+              </div>
+              <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-6">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold font-heading text-white mb-3">Accessible Security for All</h3>
+              <p class="text-gray-300 text-sm leading-relaxed">
+                "To make industry-standard cybersecurity knowledge practical, accessible, and job-oriented—while offering trusted penetration testing services that safeguard digital assets for startups, enterprises, and individuals alike."
+              </p>
+              
+              <div class="mt-6 pt-5 border-t border-gray-800 flex items-center justify-between text-xs text-gray-400 font-mono">
+                <span>Vedas InfoSec Standard</span>
+                <span class="text-emerald-400">Verified Defensive Posture</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Training Programs Section -->
+    <section id="training" class="py-24 relative cyber-grid">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-400 mb-3">
+            🎓 Training Programs
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-extrabold font-heading text-white tracking-tight">
+            Learn Ethical Hacking From Scratch
+          </h2>
+          <p class="text-gray-400 mt-4 text-base sm:text-lg">
+            Real interactive labs, live mentor support, and a structured path from zero experience to industry-ready cyber defender.
+          </p>
+        </div>
+
+        <!-- 3 Feature Pillars -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          <!-- Pillar 1 -->
+          <div class="p-6 rounded-2xl bg-dark-850/90 border border-gray-800 hover:border-cyan-500/50 transition duration-300 group">
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 mb-5 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold font-heading text-white mb-2">Live Interactive Training</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              Real-time problem-solving with mentors, live doubt clearing sessions, and recorded videos provided for every class so you can revise at your own pace.
+            </p>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="p-6 rounded-2xl bg-dark-850/90 border border-gray-800 hover:border-emerald-500/50 transition duration-300 group">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-5 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold font-heading text-white mb-2">100% Practical & Lab-Oriented</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              Skip purely theoretical lectures. Get deep hands-on experience inside Kali Linux environments, networking commands, and standard security auditing suites.
+            </p>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="p-6 rounded-2xl bg-dark-850/90 border border-gray-800 hover:border-cyan-500/50 transition duration-300 group">
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 mb-5 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold font-heading text-white mb-2">Career Enablement</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              Step-by-step guidance for freelancing, global remote opportunities, bug bounty platforms, and enterprise security roles without needing a conventional degree.
+            </p>
+          </div>
+        </div>
+
+        <!-- Roadmap: Beginner to Job-Ready -->
+        <div class="mt-20">
+          <div class="text-center mb-12">
+            <span class="text-xs uppercase font-mono tracking-widest text-emerald-400 font-semibold">Structured Curriculum</span>
+            <h3 class="text-2xl sm:text-3xl font-extrabold font-heading text-white mt-1">
+              Beginner-to-Job Ready Roadmap
+            </h3>
+            <p class="text-gray-400 text-sm mt-2 max-w-xl mx-auto">
+              Follow our proven five-stage learning progression to master offensive security concepts systematically.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+            
+            <!-- Step 1 -->
+            <div class="relative p-5 rounded-2xl bg-dark-850 border border-gray-800 hover:border-cyan-500/40 transition flex flex-col justify-between">
+              <div>
+                <span class="inline-block text-xs font-mono font-bold text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded mb-3">STAGE 01</span>
+                <h4 class="text-base font-bold font-heading text-white mb-2">Networking & Linux OS</h4>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                  TCP/IP, subnetting, Wireshark packet analysis, Linux terminal mastery, and bash fundamentals.
+                </p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-gray-800 text-[11px] font-mono text-gray-500 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> Core Foundation
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="relative p-5 rounded-2xl bg-dark-850 border border-gray-800 hover:border-cyan-500/40 transition flex flex-col justify-between">
+              <div>
+                <span class="inline-block text-xs font-mono font-bold text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded mb-3">STAGE 02</span>
+                <h4 class="text-base font-bold font-heading text-white mb-2">Hacker Mindset & Recon</h4>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                  OSINT, passive/active reconnaissance, Google dorking, Nmap port discovery, and footprinting systems.
+                </p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-gray-800 text-[11px] font-mono text-gray-500 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> Attack Surface Discovery
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="relative p-5 rounded-2xl bg-dark-850 border border-gray-800 hover:border-cyan-500/40 transition flex flex-col justify-between">
+              <div>
+                <span class="inline-block text-xs font-mono font-bold text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded mb-3">STAGE 03</span>
+                <h4 class="text-base font-bold font-heading text-white mb-2">Web App & Bug Bounty</h4>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                  OWASP Top 10, SQLi, XSS, CSRF, IDOR vulnerabilities, Burp Suite mastery, and reporting ethics.
+                </p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-gray-800 text-[11px] font-mono text-gray-500 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> Application Testing
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="relative p-5 rounded-2xl bg-dark-850 border border-gray-800 hover:border-cyan-500/40 transition flex flex-col justify-between">
+              <div>
+                <span class="inline-block text-xs font-mono font-bold text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded mb-3">STAGE 04</span>
+                <h4 class="text-base font-bold font-heading text-white mb-2">Wireless & Passwords</h4>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                  WPA2/3 cracking, de-authentication, rogue access points, hash cracking via Hashcat and John the Ripper.
+                </p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-gray-800 text-[11px] font-mono text-gray-500 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> Credential Security
+              </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="relative p-5 rounded-2xl bg-dark-850 border border-gray-800 hover:border-emerald-500/50 transition flex flex-col justify-between">
+              <div>
+                <span class="inline-block text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded mb-3">STAGE 05</span>
+                <h4 class="text-base font-bold font-heading text-white mb-2">Lab Setup & Workflows</h4>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                  Deploying vulnerable targets, end-to-end pentesting workflow execution, writing professional client reports.
+                </p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-gray-800 text-[11px] font-mono text-emerald-400 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Job-Ready Portfolio
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Training CTA Box -->
+          <div class="mt-10 p-6 rounded-2xl bg-gradient-to-r from-dark-800 via-dark-850 to-dark-800 border border-cyan-500/20 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <div>
+              <h4 class="font-heading font-bold text-white text-lg">Ready to start your cybersecurity journey?</h4>
+              <p class="text-sm text-gray-400">Batch sizes are limited to ensure 1-on-1 mentor guidance and lab assistance.</p>
+            </div>
+            <a href="#contact" class="px-6 py-2.5 rounded-xl font-heading text-sm font-semibold bg-cyan-400 text-dark-900 hover:bg-cyan-300 transition whitespace-nowrap shadow-md shadow-cyan-500/20">
+              Apply for Next Batch →
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Pentesting Services Section -->
+    <section id="pentesting" class="py-24 bg-dark-850 relative border-t border-b border-gray-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-xs font-mono text-emerald-400 mb-3">
+            🛡️ Penetration Testing Services
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-extrabold font-heading text-white tracking-tight">
+            Offensive Security Audits for Modern Stacks
+          </h2>
+          <p class="text-gray-400 mt-4 text-base sm:text-lg">
+            Identify vulnerabilities before malicious actors exploit them. We simulate real-world cyberattacks across your entire ecosystem.
+          </p>
+        </div>
+
+        <!-- Services Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <!-- Service 1: Web App Security -->
+          <div class="p-7 rounded-2xl bg-dark-900 border border-gray-800 hover:border-cyan-500/50 transition duration-300 group">
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-5 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold font-heading text-white mb-2">Web Application Security</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+              Comprehensive assessments evaluating OWASP Top 10 vulnerabilities, authentication bypasses, business logic flaws, and injection vectors.
+            </p>
+            <span class="text-xs font-mono text-cyan-400">Target: SaaS, Portals, CMS</span>
+          </div>
+
+          <!-- Service 2: API Security -->
+          <div class="p-7 rounded-2xl bg-dark-900 border border-gray-800 hover:border-emerald-500/50 transition duration-300 group">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-5 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold font-heading text-white mb-2">API Security Assessments</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+              REST, GraphQL, and microservice audits. Checking broken object level authorization (BOLA), token leaks, and rate-limiting failures.
+            </p>
+            <span class="text-xs font-mono text-emerald-400">Target: REST, GraphQL, Microservices</span>
+          </div>
+
+          <!-- Service 3: Mobile Security -->
+          <div class="p-7 rounded-2xl bg-dark-900 border border-gray-800 hover:border-cyan-500/50 transition duration-300 group">
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-5 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold font-heading text-white mb-2">Mobile Application Security</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+              Static and dynamic analysis of Android (APK) and iOS (IPA) apps. Insecure data storage, IPC flaws, and code obfuscation checks.
+            </p>
+            <span class="text-xs font-mono text-cyan-400">Target: Android & iOS Builds</span>
+          </div>
+
+          <!-- Service 4: Network Infrastructure -->
+          <div class="p-7 rounded-2xl bg-dark-900 border border-gray-800 hover:border-emerald-500/50 transition duration-300 group">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-5 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold font-heading text-white mb-2">Network Infrastructure Audits</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+              Internal & external perimeter testing, open port scanning, legacy protocol abuse, firewall validation, and Active Directory audits.
+            </p>
+            <span class="text-xs font-mono text-emerald-400">Target: Internal & External Perimeters</span>
+          </div>
+
+          <!-- Service 5: Cloud Security -->
+          <div class="p-7 rounded-2xl bg-dark-900 border border-gray-800 hover:border-cyan-500/50 transition duration-300 group">
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-5 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold font-heading text-white mb-2">Cloud Security Testing</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+              Hardening audits across AWS, Microsoft Azure, and Google Cloud Platform. IAM privilege escalation, misconfigured storage buckets, and posture analysis.
+            </p>
+            <span class="text-xs font-mono text-cyan-400">Target: AWS, Azure, GCP</span>
+          </div>
+
+          <!-- Service 6: Office 365 -->
+          <div class="p-7 rounded-2xl bg-dark-900 border border-gray-800 hover:border-emerald-500/50 transition duration-300 group">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-5 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold font-heading text-white mb-2">Office 365 Security Audits</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+              Evaluating tenant configurations, email filtering rules, MFA enforcement policies, SharePoint sharing permissions, and unauthorized forwarding.
+            </p>
+            <span class="text-xs font-mono text-emerald-400">Target: M365 Tenants & Azure AD</span>
+          </div>
+
+        </div>
+
+        <!-- Remediation Reports Banner -->
+        <div class="mt-14 p-6 sm:p-8 rounded-2xl bg-dark-900 border border-cyan-500/30 flex flex-col md:flex-row items-center gap-6">
+          <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 flex-shrink-0 flex items-center justify-center text-cyan-400">
+            <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+            </svg>
+          </div>
+          <div class="flex-1 text-center md:text-left">
+            <div class="inline-block px-2.5 py-0.5 rounded-full text-xs font-mono bg-cyan-400/10 text-cyan-300 font-semibold mb-1">
+              Detailed Reports with Actionable Remediation Steps
+            </div>
+            <h4 class="text-lg sm:text-xl font-bold font-heading text-white">We don't just find flaws—we guide your dev team to fix them.</h4>
+            <p class="text-sm text-gray-400 mt-1">Every test concludes with an executive risk summary and proof-of-concept steps for easy engineering remediation.</p>
+          </div>
+          <div>
+            <a href="#contact" class="px-6 py-3 rounded-xl font-heading text-sm font-semibold bg-emerald-400 hover:bg-emerald-300 text-dark-900 transition whitespace-nowrap">
+              Schedule an Audit
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Why Choose Vedas InfoSec? -->
+    <section id="why-us" class="py-24 cyber-grid relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="text-xs uppercase font-mono tracking-widest text-cyan-400 font-semibold">The Vedas Advantage</span>
+          <h2 class="text-3xl sm:text-5xl font-extrabold font-heading text-white tracking-tight mt-2">
+            Why Choose Vedas InfoSec?
+          </h2>
+          <p class="text-gray-400 mt-4 text-base sm:text-lg">
+            Engineered from ground zero for aspiring security professionals and growing businesses needing swift, reliable protection.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          <!-- Benefit 1 -->
+          <div class="p-8 rounded-2xl bg-dark-850/80 border border-gray-800 hover:border-cyan-500/40 transition">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex-shrink-0 flex items-center justify-center text-cyan-400 font-bold font-mono">
+                01
+              </div>
+              <div>
+                <h3 class="text-xl font-bold font-heading text-white mb-2">Beginner-Friendly Curriculum</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  No prior coding or computer engineering background is required. We break down complex attack vectors and networking models into intuitive, digestible modules.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Benefit 2 -->
+          <div class="p-8 rounded-2xl bg-dark-850/80 border border-gray-800 hover:border-emerald-500/40 transition">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex-shrink-0 flex items-center justify-center text-emerald-400 font-bold font-mono">
+                02
+              </div>
+              <div>
+                <h3 class="text-xl font-bold font-heading text-white mb-2">High-Demand Skill Focus</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  With over 35+ Lakh unfilled cybersecurity positions worldwide, we focus strictly on marketable skills—preparing you for SOC analyst, pentester, and bug hunter roles.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Benefit 3 -->
+          <div class="p-8 rounded-2xl bg-dark-850/80 border border-gray-800 hover:border-emerald-500/40 transition">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex-shrink-0 flex items-center justify-center text-emerald-400 font-bold font-mono">
+                03
+              </div>
+              <div>
+                <h3 class="text-xl font-bold font-heading text-white mb-2">Dedicated 1-on-1 Mentorship</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  You are never left alone with recorded videos. Get personalized guidance, active doubt resolution channels, and constructive resume & career advice.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Benefit 4 -->
+          <div class="p-8 rounded-2xl bg-dark-850/80 border border-gray-800 hover:border-cyan-500/40 transition">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex-shrink-0 flex items-center justify-center text-cyan-400 font-bold font-mono">
+                04
+              </div>
+              <div>
+                <h3 class="text-xl font-bold font-heading text-white mb-2">Startup-Driven Agile Services</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  Tailored, cost-effective penetration testing solutions built for startups and growing enterprises—without cumbersome corporate red tape or bloated retainers.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Contact & Socials Section -->
+    <section id="contact" class="py-24 bg-dark-850 relative border-t border-gray-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          
+          <!-- Contact Info Column -->
+          <div class="lg:col-span-5 space-y-8">
+            <div>
+              <span class="text-xs uppercase font-mono tracking-widest text-cyan-400 font-semibold">Get In Touch</span>
+              <h2 class="text-3xl sm:text-4xl font-extrabold font-heading text-white mt-2">
+                Connect With Our Team
+              </h2>
+              <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+                Whether you want to enroll in our practical cybersecurity training or book a penetration test for your company, reach out directly.
+              </p>
+            </div>
+
+            <!-- Direct Contact Links -->
+            <div class="space-y-4">
+              
+              <!-- Phone / WhatsApp -->
+              <a href="https://wa.me/917089357063" target="_blank" rel="noopener noreferrer" class="p-4 rounded-xl bg-dark-900 border border-gray-800 hover:border-emerald-500/50 flex items-center gap-4 transition group">
+                <div class="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                  <!-- Phone / WhatsApp SVG -->
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 012.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 01-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.63c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.25-1.5-1.4-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.78 2.72 4.31 3.81.6.26 1.07.41 1.44.53.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-xs font-mono text-gray-400">Phone / WhatsApp</div>
+                  <div class="text-base font-semibold text-white group-hover:text-emerald-400 transition">+91 7089357063</div>
+                </div>
+              </a>
+
+              <!-- Email -->
+              <a href="mailto:info@vedasinfosec.com" class="p-4 rounded-xl bg-dark-900 border border-gray-800 hover:border-cyan-500/50 flex items-center gap-4 transition group">
+                <div class="w-12 h-12 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-xs font-mono text-gray-400">Email Address</div>
+                  <div class="text-base font-semibold text-white group-hover:text-cyan-400 transition">info@vedasinfosec.com</div>
+                </div>
+              </a>
+
+            </div>
+
+            <!-- Follow Us: Social Links -->
+            <div class="pt-4">
+              <span class="text-xs uppercase font-mono tracking-widest text-gray-400 font-semibold block mb-3">Follow Vedas InfoSec</span>
+              <div class="flex items-center gap-3">
+                
+                <!-- Instagram -->
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Follow Vedas InfoSec on Instagram" class="p-3 rounded-xl bg-dark-900 border border-gray-800 text-gray-300 hover:text-pink-400 hover:border-pink-500/50 transition">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                </a>
+
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="Follow Vedas InfoSec on LinkedIn" class="p-3 rounded-xl bg-dark-900 border border-gray-800 text-gray-300 hover:text-cyan-400 hover:border-cyan-500/50 transition">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                  </svg>
+                </a>
+
+                <span class="text-xs text-gray-500 font-mono ml-2">@vedasinfosec</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Contact Inquiry Form -->
+          <div class="lg:col-span-7">
+            <div class="p-6 sm:p-8 rounded-2xl bg-dark-900 border border-gray-800 relative">
+              <h3 class="text-xl font-bold font-heading text-white mb-2">Send an Inquiry</h3>
+              <p class="text-gray-400 text-sm mb-6">Fill in your information and our cyber advisors will reply within 24 hours.</p>
+
+              <!-- Form Element -->
+              <form id="inquiryForm" class="space-y-4">
+                
+                <div>
+                  <label for="fullName" class="block text-xs font-mono uppercase text-gray-400 mb-1">Your Name</label>
+                  <input type="text" id="fullName" required placeholder="e.g. Alex Sharma" class="w-full px-4 py-3 rounded-xl bg-dark-850 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition text-sm">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label for="email" class="block text-xs font-mono uppercase text-gray-400 mb-1">Email Address</label>
+                    <input type="email" id="email" required placeholder="you@domain.com" class="w-full px-4 py-3 rounded-xl bg-dark-850 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition text-sm">
+                  </div>
+                  <div>
+                    <label for="phone" class="block text-xs font-mono uppercase text-gray-400 mb-1">Phone / WhatsApp</label>
+                    <input type="tel" id="phone" placeholder="+91 ..." class="w-full px-4 py-3 rounded-xl bg-dark-850 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition text-sm">
+                  </div>
+                </div>
+
+                <div>
+                  <label for="serviceInterest" class="block text-xs font-mono uppercase text-gray-400 mb-1">Area of Interest</label>
+                  <select id="serviceInterest" class="w-full px-4 py-3 rounded-xl bg-dark-850 border border-gray-700 text-white focus:outline-none focus:border-cyan-400 transition text-sm">
+                    <option value="training">🎓 Cybersecurity Training Program</option>
+                    <option value="pentesting">🛡️ Penetration Testing & Vulnerability Audit</option>
+                    <option value="both">⚡ Both Training & Security Services</option>
+                    <option value="general">💬 General Inquiries & Partnerships</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="message" class="block text-xs font-mono uppercase text-gray-400 mb-1">Message or Target Scope</label>
+                  <textarea id="message" rows="4" required placeholder="Tell us about your learning goals or your company's security testing requirements..." class="w-full px-4 py-3 rounded-xl bg-dark-850 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition text-sm"></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn" class="w-full py-3.5 rounded-xl font-heading font-semibold text-dark-900 bg-gradient-to-r from-cyan-400 to-emerald-400 hover:from-cyan-300 hover:to-emerald-300 transition duration-300 shadow-md shadow-cyan-500/20 text-sm flex items-center justify-center gap-2">
+                  <span>Send Message via Email / WhatsApp</span>
+                  <svg class="w-4 h-4 text-dark-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                  </svg>
+                </button>
+              </form>
+
+              <!-- In-page Submission Confirmation Box -->
+              <div id="formSuccessModal" class="hidden mt-4 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/40 text-emerald-300 text-sm">
+                <div class="flex items-center gap-2">
+                  <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  <span class="font-semibold">Message Prepared!</span>
+                </div>
+                <p class="text-xs text-emerald-400/90 mt-1">
+                  Opening WhatsApp & Email draft with your inquiry details now. Thank you for connecting with Vedas InfoSec!
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-dark-900 border-t border-gray-800 text-gray-400 text-sm py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-400 to-emerald-400 p-[1px]">
+            <div class="w-full h-full bg-dark-900 rounded-[7px] flex items-center justify-center">
+              <svg class="w-4 h-4 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+          </div>
+          <span class="text-white font-heading font-bold text-lg">Vedas InfoSec</span>
+          <span class="text-xs text-gray-500 hidden sm:inline">| Practical Security Training & Pentesting</span>
+        </div>
+
+        <div class="flex items-center gap-6 text-xs font-mono">
+          <a href="#about" class="hover:text-cyan-400 transition">About</a>
+          <a href="#training" class="hover:text-cyan-400 transition">Training</a>
+          <a href="#pentesting" class="hover:text-cyan-400 transition">Pentesting</a>
+          <a href="#contact" class="hover:text-cyan-400 transition">Contact</a>
+        </div>
+
+        <div class="text-xs text-gray-500 text-center md:text-right">
+          © <span id="currentYear"></span> Vedas InfoSec. All rights reserved.
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Interactions -->
+  <script>
+    // Update Copyright Year
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Mobile Navigation Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuIcon = document.getElementById('menuIcon');
+    const closeIcon = document.getElementById('closeIcon');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      const isExpanded = !mobileMenu.classList.contains('hidden');
+      if (isExpanded) {
+        mobileMenu.classList.add('hidden');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      } else {
+        mobileMenu.classList.remove('hidden');
+        menuIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
+      }
+    });
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      });
+    });
+
+    // Inquiry Form Handling (Direct WhatsApp & Email Handshake)
+    const inquiryForm = document.getElementById('inquiryForm');
+    const formSuccessModal = document.getElementById('formSuccessModal');
+
+    inquiryForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const interest = document.getElementById('serviceInterest').value;
+      const message = document.getElementById('message').value.trim();
+
+      const textPayload = `Hi Vedas InfoSec Team,%0a%0aMy name is ${encodeURIComponent(name)}.%0aEmail: ${encodeURIComponent(email)}%0aPhone: ${encodeURIComponent(phone || 'N/A')}%0aInterest: ${encodeURIComponent(interest)}%0a%0aMessage:%0a${encodeURIComponent(message)}`;
+
+      // Show immediate in-app confirmation
+      formSuccessModal.classList.remove('hidden');
+
+      // Seamlessly redirect to WhatsApp inquiry
+      setTimeout(() => {
+        const whatsappUrl = `https://wa.me/917089357063?text=${textPayload}`;
+        window.open(whatsappUrl, '_blank');
+      }, 700);
+    });
+  </script>
+</body>
+</html>
